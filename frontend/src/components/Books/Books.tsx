@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Alert, Box, Typography } from "@mui/material";
 import { SearchBooks } from "../SearchBooks/SearchBooks";
 import { useEffect, useState } from "react";
 import { BookList } from "../BookList/BookList";
@@ -12,11 +12,22 @@ export const Books = ({ books }: Props) => {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [studentList, setStudentList] = useState<Book[]>([]);
 	const [filteredBooks, setFilteredBooks] = useState(books);
+	const [showAlert, setShowAlert] = useState(false);
 
 	const handleSearch = (books: Book[], searchTerm: string) => {
 		return books.filter((book) =>
 			book.title.toLowerCase().includes(searchTerm.toLowerCase()),
 		);
+	};
+	const addBookToReadingList = (book: Book) => {
+		const updatedList = [...studentList, book];
+		const uniqueList = Array.from(
+			new Set(updatedList.map((book) => book.title)),
+		).map((title) => updatedList.find((book) => book.title === title));
+		setStudentList(
+			uniqueList.filter((book): book is Book => book !== undefined),
+		);
+		setShowAlert(true);
 	};
 
 	useEffect(() => {
@@ -24,14 +35,42 @@ export const Books = ({ books }: Props) => {
 		setFilteredBooks(fBooks);
 	}, [searchTerm, books, setFilteredBooks]);
 
+	useEffect(() => {
+		const idleTimeout = setTimeout(() => {
+			setSearchTerm("");
+		}, 300000);
+
+		return () => {
+			clearTimeout(idleTimeout);
+		};
+	}, [setSearchTerm]);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setShowAlert(false);
+		}, 10000);
+	}, [showAlert]);
+
 	return (
 		<Box>
+			{showAlert && (
+				<Alert
+					variant="filled"
+					onClose={() => setShowAlert(false)}
+					sx={{
+						margin: "16px 0",
+						backgroundColor: "#CFFAFA",
+						color: "#335C6E",
+					}}
+				>
+					Book added to reading list
+				</Alert>
+			)}
 			<SearchBooks setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
 			{searchTerm && (
 				<SearchResults
-					studentList={studentList}
+					addBookToReadingList={addBookToReadingList}
 					searchItems={filteredBooks}
-					setStudentList={setStudentList}
 				/>
 			)}
 			<Typography
