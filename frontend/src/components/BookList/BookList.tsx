@@ -17,7 +17,7 @@ export const BookList = ({ books, removeBookFromReadingList }: Props) => {
 							width={200}
 							height={200}
 							style={{
-								borderRadius: "5px",
+								borderRadius: "15px",
 								objectFit: "cover",
 							}}
 						/>
@@ -34,9 +34,9 @@ export const BookList = ({ books, removeBookFromReadingList }: Props) => {
 						<Typography
 							variant="body1"
 							sx={{
-								fontSize: 13,
+								fontSize: "0.812rem",
 								color: "#9da9aa",
-								fontWeight: 500,
+								fontStyle: "normal",
 							}}
 						>
 							by {book.author}
