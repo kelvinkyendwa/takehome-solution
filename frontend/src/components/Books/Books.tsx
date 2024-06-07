@@ -10,7 +10,7 @@ interface Props {
 }
 export const Books = ({ books }: Props) => {
 	const [searchTerm, setSearchTerm] = useState("");
-	const [studentList, setStudentList] = useState<Book[]>([]);
+	const [studentReadingList, setStudentReadingList] = useState<Book[]>([]);
 	const [filteredBooks, setFilteredBooks] = useState(books);
 	const [showAlert, setShowAlert] = useState(false);
 
@@ -20,19 +20,21 @@ export const Books = ({ books }: Props) => {
 		);
 	};
 	const addBookToReadingList = (book: Book) => {
-		const updatedList = [...studentList, book];
+		const updatedList = [...studentReadingList, book];
 		const uniqueList = Array.from(
 			new Set(updatedList.map((book) => book.title)),
 		).map((title) => updatedList.find((book) => book.title === title));
-		setStudentList(
+		setStudentReadingList(
 			uniqueList.filter((book): book is Book => book !== undefined),
 		);
 		setShowAlert(true);
 	};
-	// remove from reading List
+
 	const removeBookFromReadingList = (book: Book) => {
-		const updatedList = studentList.filter((b) => b.title !== book.title);
-		setStudentList(updatedList);
+		const updatedList = studentReadingList.filter(
+			(b) => b.title !== book.title,
+		);
+		setStudentReadingList(updatedList);
 	};
 
 	useEffect(() => {
@@ -59,43 +61,43 @@ export const Books = ({ books }: Props) => {
 		}
 	}, [showAlert]);
 
-return (
-	<Box>
-		{showAlert && (
-			<Alert
-				variant="filled"
-				onClose={() => setShowAlert(false)}
+	return (
+		<Box>
+			{showAlert && (
+				<Alert
+					variant="filled"
+					onClose={() => setShowAlert(false)}
+					sx={{
+						margin: "16px 0",
+						backgroundColor: "#CFFAFA",
+						color: "#335C6E",
+					}}
+				>
+					Book added to reading list
+				</Alert>
+			)}
+			<SearchBooks setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
+			{searchTerm && (
+				<SearchResults
+					addBookToReadingList={addBookToReadingList}
+					searchItems={filteredBooks}
+				/>
+			)}
+			<Typography
+				variant="body1"
 				sx={{
-					margin: "16px 0",
-					backgroundColor: "#CFFAFA",
+					fontSize: "1.625rem",
+					fontWeight: "500",
+					margin: "16px 0 0",
 					color: "#335C6E",
 				}}
 			>
-				Book added to reading list
-			</Alert>
-		)}
-		<SearchBooks setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
-		{searchTerm && (
-			<SearchResults
-				addBookToReadingList={addBookToReadingList}
-				searchItems={filteredBooks}
+				Reading List
+			</Typography>
+			<BookList
+				books={studentReadingList}
+				removeBookFromReadingList={removeBookFromReadingList}
 			/>
-		)}
-		<Typography
-			variant="body1"
-			sx={{
-				fontSize: "1.625rem",
-				fontWeight: "500",
-				margin: "16px 0 0",
-				color: "#335C6E",
-			}}
-		>
-			Reading List
-		</Typography>
-		<BookList
-			books={studentList}
-			removeBookFromReadingList={removeBookFromReadingList}
-		/>
-	</Box>
-);
+		</Box>
+	);
 };
