@@ -18,7 +18,6 @@ export const BookList = ({ books }: Props) => {
 							style={{
 								borderRadius: "5px",
 								objectFit: "cover",
-								boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
 							}}
 						/>
 						<Typography
