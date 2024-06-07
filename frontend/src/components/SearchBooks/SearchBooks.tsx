@@ -10,7 +10,7 @@ export const SearchBooks = ({ setSearchTerm, searchTerm }: Props) => {
 		<Box>
 			<TextField
 				variant="outlined"
-				placeholder="Search..."
+				placeholder="Book..."
 				value={searchTerm}
 				fullWidth
 				onChange={(e) => setSearchTerm(e.target.value)}
