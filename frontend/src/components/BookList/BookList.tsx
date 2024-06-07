@@ -41,7 +41,13 @@ export const BookList = ({ books, removeBookFromReadingList }: Props) => {
 						>
 							by {book.author}
 						</Typography>
-						<Typography variant="body1">{book.readingLevel}</Typography>
+						<Typography
+							variant="body1"
+							sx={{ fontSize: "10px", fontWeight: 800 }}
+						>
+							LEVEL - {book.readingLevel}
+						</Typography>
+
 						<ButtonBase
 							sx={{
 								backgroundColor: "#f76434",
