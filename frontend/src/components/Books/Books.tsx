@@ -29,6 +29,11 @@ export const Books = ({ books }: Props) => {
 		);
 		setShowAlert(true);
 	};
+	// remove from reading List
+	const removeBookFromReadingList = (book: Book) => {
+		const updatedList = studentList.filter((b) => b.title !== book.title);
+		setStudentList(updatedList);
+	};
 
 	useEffect(() => {
 		const fBooks = handleSearch(books, searchTerm);
@@ -46,45 +51,51 @@ export const Books = ({ books }: Props) => {
 	}, [setSearchTerm]);
 
 	useEffect(() => {
-		setTimeout(() => {
-			setShowAlert(false);
-		}, 10000);
+		if (showAlert) {
+			const timeout = setTimeout(() => {
+				setShowAlert(false);
+			}, 10000);
+			return () => clearTimeout(timeout);
+		}
 	}, [showAlert]);
 
-	return (
-		<Box>
-			{showAlert && (
-				<Alert
-					variant="filled"
-					onClose={() => setShowAlert(false)}
-					sx={{
-						margin: "16px 0",
-						backgroundColor: "#CFFAFA",
-						color: "#335C6E",
-					}}
-				>
-					Book added to reading list
-				</Alert>
-			)}
-			<SearchBooks setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
-			{searchTerm && (
-				<SearchResults
-					addBookToReadingList={addBookToReadingList}
-					searchItems={filteredBooks}
-				/>
-			)}
-			<Typography
-				variant="body1"
+return (
+	<Box>
+		{showAlert && (
+			<Alert
+				variant="filled"
+				onClose={() => setShowAlert(false)}
 				sx={{
-					fontSize: "1.625rem",
-					fontWeight: "500",
-					margin: "16px 0 0",
+					margin: "16px 0",
+					backgroundColor: "#CFFAFA",
 					color: "#335C6E",
 				}}
 			>
-				Reading List
-			</Typography>
-			<BookList books={studentList} />
-		</Box>
-	);
+				Book added to reading list
+			</Alert>
+		)}
+		<SearchBooks setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
+		{searchTerm && (
+			<SearchResults
+				addBookToReadingList={addBookToReadingList}
+				searchItems={filteredBooks}
+			/>
+		)}
+		<Typography
+			variant="body1"
+			sx={{
+				fontSize: "1.625rem",
+				fontWeight: "500",
+				margin: "16px 0 0",
+				color: "#335C6E",
+			}}
+		>
+			Reading List
+		</Typography>
+		<BookList
+			books={studentList}
+			removeBookFromReadingList={removeBookFromReadingList}
+		/>
+	</Box>
+);
 };

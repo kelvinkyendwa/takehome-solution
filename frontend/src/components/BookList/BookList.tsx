@@ -1,10 +1,11 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, ButtonBase, Grid, Typography } from "@mui/material";
 import { Book } from "../../types/types";
 
 interface Props {
 	books: Book[];
+	removeBookFromReadingList: (book: Book) => void;
 }
-export const BookList = ({ books }: Props) => {
+export const BookList = ({ books, removeBookFromReadingList }: Props) => {
 	return (
 		<Grid container spacing={2}>
 			{books.map((book, index) => (
@@ -41,6 +42,19 @@ export const BookList = ({ books }: Props) => {
 							by {book.author}
 						</Typography>
 						<Typography variant="body1">{book.readingLevel}</Typography>
+						<ButtonBase
+							sx={{
+								backgroundColor: "#f76434",
+								color: "#fff",
+								borderRadius: "15px",
+								padding: "5px 10px",
+								marginTop: "10px",
+								fontSize: "0.875rem",
+							}}
+							onClick={() => removeBookFromReadingList(book)}
+						>
+							Remove
+						</ButtonBase>
 					</Box>
 				</Grid>
 			))}
