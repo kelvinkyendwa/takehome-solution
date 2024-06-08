@@ -50,7 +50,7 @@ export const BookList = ({ books, removeBookFromReadingList }: Props) => {
 
 						<Chip
 							label="Remove"
-							color="secondary"
+							color="warning"
 							sx={{
 								padding: "5px",
 								marginTop: "10px",
