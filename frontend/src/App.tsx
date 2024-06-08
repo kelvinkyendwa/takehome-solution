@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 function App() {
 	const [allBooks, setAllBooks] = useState([]);
-	// fetch books from server and pass to Books component
+
 	useEffect(() => {
 		const fetchBooks = async () => {
 			const response = await fetch("http://localhost:4000/graphql", {
@@ -40,8 +40,8 @@ function App() {
 		<Container>
 			<Box
 				sx={{
-					maxWidth: "100%",
-					paddingX: "72px",
+					maxWidth: "1200px",
+					px: 8,
 				}}
 			>
 				<HeadingSection />
