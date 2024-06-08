@@ -22,13 +22,18 @@ export const Books = ({ books }: Props) => {
 	};
 	const addBookToReadingList = (book: Book) => {
 		const updatedList = [...studentReadingList, book];
-		const uniqueList = Array.from(
-			new Set(updatedList.map((book) => book.title)),
-		).map((title) => updatedList.find((book) => book.title === title));
-		setStudentReadingList(
-			uniqueList.filter((book): book is Book => book !== undefined),
+		const isBookAlreadyAdded = studentReadingList.some(
+			(b) => b.title === book.title,
 		);
-		setShowAlert(true);
+		if (!isBookAlreadyAdded) {
+			const uniqueList = Array.from(
+				new Set(updatedList.map((book) => book.title)),
+			).map((title) => updatedList.find((book) => book.title === title));
+			setStudentReadingList(
+				uniqueList.filter((book): book is Book => book !== undefined),
+			);
+			setShowAlert(true);
+		}
 	};
 
 	const removeBookFromReadingList = (book: Book) => {
