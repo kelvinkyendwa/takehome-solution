@@ -1,4 +1,4 @@
-import { Box, ButtonBase, Grid, Typography } from "@mui/material";
+import { Box, Chip, Grid, Typography } from "@mui/material";
 import { Book } from "../../types/types";
 
 interface Props {
@@ -48,19 +48,15 @@ export const BookList = ({ books, removeBookFromReadingList }: Props) => {
 							LEVEL - {book.readingLevel}
 						</Typography>
 
-						<ButtonBase
+						<Chip
+							label="Remove"
+							color="secondary"
 							sx={{
-								backgroundColor: "#f76434",
-								color: "#fff",
-								borderRadius: "15px",
-								padding: "5px 10px",
+								padding: "5px",
 								marginTop: "10px",
-								fontSize: "0.875rem",
 							}}
 							onClick={() => removeBookFromReadingList(book)}
-						>
-							Remove
-						</ButtonBase>
+						/>
 					</Box>
 				</Grid>
 			))}
