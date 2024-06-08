@@ -1,4 +1,4 @@
-import { Alert, Box, Typography } from "@mui/material";
+import { Box, Snackbar, Typography } from "@mui/material";
 import { SearchBooks } from "../SearchBooks/SearchBooks";
 import { useEffect, useState } from "react";
 import { BookList } from "../BookList/BookList";
@@ -63,19 +63,12 @@ export const Books = ({ books }: Props) => {
 
 	return (
 		<Box>
-			{showAlert && (
-				<Alert
-					variant="filled"
-					onClose={() => setShowAlert(false)}
-					sx={{
-						margin: "16px 0",
-						backgroundColor: "#CFFAFA",
-						color: "#335C6E",
-					}}
-				>
-					Book added to reading list
-				</Alert>
-			)}
+			<Snackbar
+				open={showAlert}
+				autoHideDuration={6000}
+				onClose={() => setShowAlert(false)}
+				message="Book added to reading list"
+			/>
 			<SearchBooks setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
 			{searchTerm && (
 				<SearchResults
