@@ -32,6 +32,12 @@ export const Books = ({ books }: Props) => {
 	};
 
 	const removeBookFromReadingList = (book: Book) => {
+		const confirmRemove = confirm(
+			"Are you sure you want to remove this book from your reading list?",
+		);
+		if (!confirmRemove) {
+			return false;
+		}
 		const updatedList = studentReadingList.filter(
 			(b) => b.title !== book.title,
 		);
