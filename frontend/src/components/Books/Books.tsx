@@ -13,6 +13,7 @@ export const Books = ({ books }: Props) => {
 	const [studentReadingList, setStudentReadingList] = useState<Book[]>([]);
 	const [filteredBooks, setFilteredBooks] = useState(books);
 	const [showAlert, setShowAlert] = useState(false);
+	const [showRemoveAlert, setShowRemoveAlert] = useState(false);
 
 	const handleSearch = (books: Book[], searchTerm: string) => {
 		return books.filter((book) =>
@@ -35,6 +36,7 @@ export const Books = ({ books }: Props) => {
 			(b) => b.title !== book.title,
 		);
 		setStudentReadingList(updatedList);
+		setShowRemoveAlert(true);
 	};
 
 	useEffect(() => {
@@ -52,15 +54,6 @@ export const Books = ({ books }: Props) => {
 		};
 	}, [setSearchTerm]);
 
-	useEffect(() => {
-		if (showAlert) {
-			const timeout = setTimeout(() => {
-				setShowAlert(false);
-			}, 10000);
-			return () => clearTimeout(timeout);
-		}
-	}, [showAlert]);
-
 	return (
 		<Box>
 			<Snackbar
@@ -69,13 +62,22 @@ export const Books = ({ books }: Props) => {
 				onClose={() => setShowAlert(false)}
 				message="Book added to reading list"
 			/>
+			<Snackbar
+				open={showRemoveAlert}
+				autoHideDuration={6000}
+				color="warning"
+				onClose={() => setShowRemoveAlert(false)}
+				message="Book removed from reading list"
+			/>
 			<SearchBooks setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
+
 			{searchTerm && (
 				<SearchResults
 					addBookToReadingList={addBookToReadingList}
 					searchItems={filteredBooks}
 				/>
 			)}
+
 			<Typography
 				variant="body1"
 				sx={{
