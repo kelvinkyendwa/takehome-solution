@@ -20,6 +20,7 @@ export const Books = ({ books }: Props) => {
 			book.title.toLowerCase().includes(searchTerm.toLowerCase()),
 		);
 	};
+
 	const addBookToReadingList = (book: Book) => {
 		const updatedList = [...studentReadingList, book];
 		const isBookAlreadyAdded = studentReadingList.some(
@@ -82,7 +83,7 @@ export const Books = ({ books }: Props) => {
 			/>
 			<SearchBooks setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
 
-			{searchTerm && (
+			{filteredBooks.length > 0 && searchTerm && (
 				<SearchResults
 					addBookToReadingList={addBookToReadingList}
 					searchItems={filteredBooks}
@@ -100,10 +101,12 @@ export const Books = ({ books }: Props) => {
 			>
 				Reading List
 			</Typography>
-			<BookList
-				books={studentReadingList}
-				removeBookFromReadingList={removeBookFromReadingList}
-			/>
+			<Box>
+				<BookList
+					books={studentReadingList}
+					removeBookFromReadingList={removeBookFromReadingList}
+				/>
+			</Box>
 		</Box>
 	);
 };
