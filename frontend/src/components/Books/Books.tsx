@@ -20,7 +20,6 @@ export const Books = ({ books }: Props) => {
 			book.title.toLowerCase().includes(searchTerm.toLowerCase()),
 		);
 	};
-
 	const addBookToReadingList = (book: Book) => {
 		const updatedList = [...studentReadingList, book];
 		const isBookAlreadyAdded = studentReadingList.some(
@@ -90,18 +89,23 @@ export const Books = ({ books }: Props) => {
 				/>
 			)}
 
-			<Typography
-				variant="body1"
+			<Box
 				sx={{
-					fontSize: "1.625rem",
-					fontWeight: "500",
-					margin: "16px 0 0",
-					color: "#335C6E",
+					position: "absolute",
+					top: "250px",
 				}}
 			>
-				Reading List
-			</Typography>
-			<Box sx={{ marginTop: 2 }}>
+				<Typography
+					variant="body1"
+					sx={{
+						fontSize: "1.625rem",
+						fontWeight: "500",
+						margin: "16px 0 0",
+						color: "#335C6E",
+					}}
+				>
+					Reading List
+				</Typography>
 				<BookList
 					books={studentReadingList}
 					removeBookFromReadingList={removeBookFromReadingList}
