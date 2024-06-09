@@ -4,8 +4,9 @@ import {
 	ListItem,
 	ButtonBase,
 	Typography,
-	Box,
+	Stack,
 } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 import { Book } from "../../types/types";
 
 interface Props {
@@ -28,34 +29,50 @@ export const SearchResults = ({ searchItems, addBookToReadingList }: Props) => {
 			<List sx={{ position: "absolute" }}>
 				{searchItems.map((book, index) => (
 					<ListItem key={index}>
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-between",
-								alignItems: "center",
-								padding: "10px",
-								width: "100%",
-							}}
+						<Grid
+							container
+							sx={{ width: "100%" }}
+							direction="row"
+							alignItems="center"
 						>
-							<img src={book.coverPhotoURL} alt={book.title} width={90} />
-							<Typography sx={{ width: "100%", paddingX: 5 }}>
-								{book.title}
-							</Typography>
-							<ButtonBase
-								onClick={() => addBookToReadingList(book)}
-								sx={{
-									backgroundColor: "#5ACCCC",
-									borderRadius: "15px",
-									height: "30px",
-									paddingX: "15px",
-									paddingY: "5px",
-									fontWeight: 600,
-									color: "#fff",
-								}}
-							>
-								Add
-							</ButtonBase>
-						</Box>
+							<Grid>
+								<img src={book.coverPhotoURL} alt={book.title} width={90} />
+							</Grid>
+							<Grid>
+								<Stack spacing={1}>
+									<Typography sx={{ width: "100%", paddingX: 5 }}>
+										{book.title}
+									</Typography>
+									<Typography
+										sx={{
+											width: "100%",
+											paddingX: 5,
+											fontSize: "0.812rem",
+											color: "#9da9aa",
+											fontStyle: "normal",
+										}}
+									>
+										by {book.author}
+									</Typography>
+								</Stack>
+							</Grid>
+							<Grid>
+								<ButtonBase
+									onClick={() => addBookToReadingList(book)}
+									sx={{
+										backgroundColor: "#5ACCCC",
+										borderRadius: "15px",
+										height: "30px",
+										paddingX: "15px",
+										paddingY: "5px",
+										fontWeight: 600,
+										color: "#fff",
+									}}
+								>
+									Add
+								</ButtonBase>
+							</Grid>
+						</Grid>
 					</ListItem>
 				))}
 			</List>
