@@ -1,9 +1,10 @@
-import { Box, Snackbar, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { SearchBooks } from "../SearchBooks/SearchBooks";
 import { useEffect, useState } from "react";
 import { BookList } from "../BookList/BookList";
 import { Book } from "../../types/types";
 import { SearchResults } from "../SearchResults/SearchResults";
+import Alerts from "../Alerts/Alerts";
 
 interface Props {
 	books: Book[];
@@ -67,18 +68,11 @@ export const Books = ({ books }: Props) => {
 
 	return (
 		<Box>
-			<Snackbar
-				open={showAlert}
-				autoHideDuration={6000}
-				onClose={() => setShowAlert(false)}
-				message="Book added to reading list"
-			/>
-			<Snackbar
-				open={showRemoveAlert}
-				autoHideDuration={6000}
-				color="warning"
-				onClose={() => setShowRemoveAlert(false)}
-				message="Book removed from reading list"
+			<Alerts
+				showAlert={showAlert}
+				showRemoveAlert={showRemoveAlert}
+				setShowAlert={setShowAlert}
+				setShowRemoveAlert={setShowRemoveAlert}
 			/>
 			<SearchBooks setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
 
