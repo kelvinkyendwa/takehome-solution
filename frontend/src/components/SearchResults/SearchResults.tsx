@@ -34,19 +34,17 @@ export const SearchResults = ({ searchItems, addBookToReadingList }: Props) => {
 							sx={{ width: "100%" }}
 							direction="row"
 							alignItems="center"
+							spacing={2}
 						>
 							<Grid>
 								<img src={book.coverPhotoURL} alt={book.title} width={90} />
 							</Grid>
 							<Grid>
 								<Stack spacing={1}>
-									<Typography sx={{ width: "100%", paddingX: 5 }}>
-										{book.title}
-									</Typography>
+									<Typography sx={{ width: "100%" }}>{book.title}</Typography>
 									<Typography
 										sx={{
 											width: "100%",
-											paddingX: 5,
 											fontSize: "0.812rem",
 											color: "#9da9aa",
 											fontStyle: "normal",
