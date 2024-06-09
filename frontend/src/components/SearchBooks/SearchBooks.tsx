@@ -7,7 +7,7 @@ interface Props {
 
 export const SearchBooks = ({ setSearchTerm, searchTerm }: Props) => {
 	return (
-		<Box>
+		<Box sx={{ marginY: 2 }}>
 			<TextField
 				variant="outlined"
 				placeholder="Book..."

@@ -101,7 +101,7 @@ export const Books = ({ books }: Props) => {
 			>
 				Reading List
 			</Typography>
-			<Box>
+			<Box sx={{ marginTop: 2 }}>
 				<BookList
 					books={studentReadingList}
 					removeBookFromReadingList={removeBookFromReadingList}

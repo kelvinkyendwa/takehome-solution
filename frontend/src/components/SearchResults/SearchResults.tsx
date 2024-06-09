@@ -14,8 +14,18 @@ interface Props {
 }
 export const SearchResults = ({ searchItems, addBookToReadingList }: Props) => {
 	return (
-		<Paper sx={{ height: "300px", overflowY: "scroll", zIndex: 50 }}>
-			<List>
+		<Paper
+			sx={{
+				height: "300px",
+				zIndex: 100,
+				width: "100%",
+				overflowY: "scroll",
+				position: "relative",
+				marginTop: "10px",
+				paddingX: 2,
+			}}
+		>
+			<List sx={{ position: "absolute" }}>
 				{searchItems.map((book, index) => (
 					<ListItem key={index}>
 						<Box
